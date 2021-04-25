@@ -23,8 +23,7 @@ namespace ödev
             InitializeComponent();
         }
 
-        string sitelink = "https://www.cnnturk.com/feed/rss/all/news";
-        private int sayac;
+
 
 
 
@@ -32,7 +31,8 @@ namespace ödev
         {
 
         }
-
+        string sitelink = "https://www.cnnturk.com/feed/rss/all/news";
+        private int sayac;
         private void timer1_Tick(object sender, EventArgs e)
         {
 
@@ -55,7 +55,6 @@ namespace ödev
             {
                 sayac = 0;
                 MessageBox.Show("1 saat doldu tekrar analiz yapıyorum.", "Uyar!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                //Keşke kodlarını hatırlaya bilseydim veya bulabilseydim çok yakındı 
 
 
 
@@ -67,27 +66,33 @@ namespace ödev
 
 
                 XmlDocument doc1 = new XmlDocument();
-            doc1.Load(sitelink);
-            XmlElement root = doc1.DocumentElement;
-            XmlNodeList nodes = root.SelectNodes("channel/item");
+                doc1.Load(sitelink);
+                XmlElement root = doc1.DocumentElement;
+                XmlNodeList nodes = root.SelectNodes("channel/item");
 
 
-            foreach (XmlNode node in nodes)
-            {
+                foreach (XmlNode node in nodes)
+                {
 
 
 
-                string baslik = node["title"].InnerText;
-                string haber = node["description"].InnerText;
+                    string baslik = node["title"].InnerText;
+                    string haber = node["description"].InnerText;
 
 
-                string fileName = @"C:\deneme\deneme.txt";
-                FileStream fs = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Write);
-                fs.Close();
-                File.AppendAllText(fileName, Environment.NewLine + "Haber Başlığı::" + baslik + Environment.NewLine + "Haber içeriği::" + haber + Environment.NewLine);
+                    string fileName = @"C:\deneme\deneme.txt";
+                    FileStream fs = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Write);
+                    fs.Close();
+                    File.AppendAllText(fileName, Environment.NewLine + "Haber Başlığı::" + baslik + Environment.NewLine + "Haber içeriği::" + haber + Environment.NewLine);
 
 
+                }
             }
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
