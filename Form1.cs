@@ -38,6 +38,24 @@ namespace ödev
 
 
 
+            sayac++;
+            timer1.Start();
+            timer1.Interval = 1000;
+            label1.Text = sayac.ToString();
+            if (sayac == 3595)
+            {
+
+                TextWriter tw = new StreamWriter(@"C:\deneme\deneme.txt");
+                tw.Write("");
+                tw.Close();
+
+
+            }
+            if (sayac == 3600)
+            {
+                sayac = 0;
+                MessageBox.Show("1 saat doldu tekrar analiz yapıyorum.", "Uyar!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //Keşke kodlarını hatırlaya bilseydim veya bulabilseydim çok yakındı 
 
 
 
@@ -46,7 +64,9 @@ namespace ödev
 
 
 
-            XmlDocument doc1 = new XmlDocument();
+
+
+                XmlDocument doc1 = new XmlDocument();
             doc1.Load(sitelink);
             XmlElement root = doc1.DocumentElement;
             XmlNodeList nodes = root.SelectNodes("channel/item");
@@ -59,6 +79,12 @@ namespace ödev
 
                 string baslik = node["title"].InnerText;
                 string haber = node["description"].InnerText;
+
+
+                string fileName = @"C:\deneme\deneme.txt";
+                FileStream fs = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Write);
+                fs.Close();
+                File.AppendAllText(fileName, Environment.NewLine + "Haber Başlığı::" + baslik + Environment.NewLine + "Haber içeriği::" + haber + Environment.NewLine);
 
 
             }
